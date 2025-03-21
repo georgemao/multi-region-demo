@@ -2,18 +2,16 @@
 
 # Cloud Functions Hello World with Cloud Code
 
-"Node.js: Hello World" is a simple HTTP-triggered Cloud Functions application that contains a sample Node.js-based script that outputs a sample "Hello World" string.
-
+This is a sample application that runs on Cloud Run as a Run Function. It can be deployed across multi-regions or a single region.
 ## Table of Contents
 
 * [Directory contents](#directory-contents)
 * [Getting started with VS Code](#getting-started-with-vs-code)
-* [Sign up for user research](#sign-up-for-user-research)
 
 ## Directory contents
 * `launch.json` - the required Cloud Code configurations
-* `index.js` - the Node.js “Hello World” sample’s code
-* `package.json` - includes the functions framework dependency
+* `index.js` - This is the entry point of the application. When the function is invoked code execution beins here.
+* `package.json` - includes configures necessary dependencies, including the Functions framework and Firestore. It also configures local emulation settings to allow local debugging.
 
 ## Getting started with VS Code
 
@@ -40,60 +38,22 @@
 
 1. Install the [Cloud Code plugin](https://cloud.google.com/code/docs/vscode/install#installing) if you haven't already.
 
-1. Since Cloud Functions integration is currently a pre-release feature, you'll also need to [install the pre-release build](https://cloud.google.com/code/docs/vscode/insiders#get).
+#### Create a function manually
 
-#### Create a function
-
-To create a new function using this sample, follow these steps:
+To create a new function manually using the Google Console, follow these steps:
 
 1. Click ![Cloud Code icon](https://cloud.google.com/static/code/docs/vscode/images/cloudcode-icon.png) **Cloud Code** and then expand the **Cloud Functions** section.
 
-1. Click **+ Create function** and select the **Node.js: Hello World** template.
+   **Refresh**.
 
-1. Navigate to the pathway that you'd like to create your new function in, enter a name for the function, and select **Create New Application**.
+#### Deploy a function using the gcloud CLI
 
-1. If the folder of your application doesn't appear automatically in the **Explorer**, click ![VS Code Refresh icon](https://cloud.google.com/static/code/docs/vscode/images/refresh-icon.png) **Refresh**.
-
-#### Deploy a function
-
-To deploy a function, follow these steps:
+To deploy a function using the gcloud CLI, follow these steps:
 
 1. Right-click a function and select **Deploy function**.
 
-1. In the Quickpick menu, select a GCP project to deploy your function to.
 
-1. Select a region that the function will be deployed to.
-
-1. Select a runtime.
-
+#### Confirm deployment success
 The function's deployment may take a few minutes.
 
 If the deployment fails, refer to the **Output** tab for the error message. Clicking the link takes you to the build logs in Google Cloud console and provides more detail about the error.
-
-#### Clean up
-
-To delete only the function you created for this quickstart:
-
-1. In the Cloud Functions explorer, right-click the function name and then select **Open in Cloud Console**.
-
-1. Click **Delete** and then click **Delete**.
-
-To delete your project and the project's associated resources:
-
-1. Go to the [Projects page](https://pantheon.corp.google.com/cloud-resource-manager) in the Google Cloud console.
-
-1. Select the project that you created for this quickstart and then click **Delete**.
-
-1. Type the project ID to confirm and then click **Shut down**.
-
-   This shuts down the project and schedules it for deletion.
-
-### Sign up for user research
-
-We want to hear your feedback!
-
-The Cloud Code team is inviting our user community to sign-up to participate in Google User Experience Research. 
-
-If you’re invited to join a study, you may try out a new product or tell us what you think about the products you use every day. At this time, Google is only sending invitations for upcoming remote studies. Once a study is complete, you’ll receive a token of thanks for your participation such as a gift card or some Google swag. 
-
-[Sign up using this link](https://google.qualtrics.com/jfe/form/SV_4Me7SiMewdvVYhL?reserved=1&utm_source=In-product&Q_Language=en&utm_medium=own_prd&utm_campaign=Q1&productTag=clou&campaignDate=January2021&referral_code=UXbT481079) and answer a few questions about yourself, as this will help our research team match you to studies that are a great fit.
