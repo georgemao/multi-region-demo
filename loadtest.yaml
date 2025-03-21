@@ -1,0 +1,26 @@
+
+config:
+  target: https://us-central1-gmao-test-project.cloudfunctions.net
+  phases:
+    - name: initial load
+      duration: 60
+      arrivalRate: 5
+      rampTo: 10
+    - name: pause
+      pause: 180
+    - name: sustain
+      duration: 60
+      arrivalRate: 15
+    - name: rampDown
+      duration: 60
+      arrivalRate: 5
+
+  variables:
+    idtoken: 
+
+scenarios:
+  - flow:
+    - get:
+        url: "/concurrency-demo"
+        headers:
+          Authorization: "bearer {{ idtoken }}"
