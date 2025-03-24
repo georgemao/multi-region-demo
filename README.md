@@ -46,7 +46,6 @@ The sample code performs the following:
    5. Returns a JSON response with all data from the Firestore document and Compute metadata
 
 
-
 You are now ready to deploy to Google Cloud!
 
 ### Before you begin
@@ -68,29 +67,50 @@ You are now ready to deploy to Google Cloud!
 
 To create a new function manually using the Google Console, follow these steps:
 
-1. Click ![Cloud Code icon](https://cloud.google.com/static/code/docs/vscode/images/cloudcode-icon.png) **Cloud Code** and then expand the **Cloud Functions** section.
+1. Browse to the Cloud Run Console (https://console.cloud.google.com/run) and click  **Write a Function**
 
-   **Refresh**.
+2. Choose **Node.js 22** and **Allow Unauthenticated invocations**. Under Ingress, choose **Internal** + **Allow traffic from ALBs**
+
+3. Click **Create**.
+
+4. Update the index.js and package.json files to match [index.js](index.js) and [package.json](package.json)
+
+5. Click **Save and redeploy**
 
 #### Deploy the function using the gcloud CLI
 
-To deploy a function using the gcloud CLI, follow these steps:
+To deploy a function using the gcloud CLI: 
 
-1. Right-click a function and select **Deploy function**.
+1. Run the gcloud command
+   ```bash
+      gcloud run deploy test-function \
+      --source . \
+      --function helloHttp \
+      --base-image nodejs22 \
+      --region us-east4 \
+      --allow-unauthenticated \
+      --ingress=internal-and-cloud-load-balancing
+   ```
 
+See docs for more info [here.](https://cloud.google.com/run/docs/deploy-functions)
 
 #### Confirm deployment success
 The function's deployment may take a few minutes. This is the process:
 
 ![alt text](./public/build.png)
 
-1. Browse to the Cloud Build Console. You should see a build kick off and all related logs.
+1. Browse to the Cloud Build Console. You should see a build kick off. Check the logs for progress.
 
-2. Check Artifact Registry. Cloud Build will push the actual deployment image when complete.
+![alt text](./public/cb.png)
+
+2. Check Artifact Registry. Cloud Build will push the actual deployment image when complete into a folder `cloud-run-source-deploy` matching the region you choose at deployment (us-east4 in this case).
+
+![alt text](./public/ar.png)
+![alt text](./public/ar2.png)
 
 3. Confirm successful deployment at Cloud Run
 
 
 #### Automate the entire architcture using Pulumi IaC
 
-See my next GitHub project for code and instructions.
+See [this GitHub project](https://github.com/georgemao/sample-next-react-webapp) for code and instructions
