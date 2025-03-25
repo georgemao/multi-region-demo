@@ -2,7 +2,7 @@
 
 # Build a planet scale, global architecture for modern apps on Google Cloud
 
-You can read my full Medium post: [Build a planet scale, global architecture for modern apps on Google Cloud](https://medium.com/google-cloud/build-a-planet-scale-global-architecture-for-modern-apps-on-google-cloud-96561750cba4)
+Read my full Medium post: [Build a planet scale, global architecture for modern apps on Google Cloud](https://medium.com/google-cloud/build-a-planet-scale-global-architecture-for-modern-apps-on-google-cloud-96561750cba4)
 
 ## Multi Region Demo powered by Cloud Run Backend
 
@@ -14,14 +14,21 @@ You can improve the architecture by adding a Load Balancer in front, which allow
 
 ![alt text](./public/secured.png)
 
-Finally, deploy the stack across multiple regions to route traffic to the user and increase availibty
+Deploy the stack across multiple regions to route traffic to the user and increase resiliency and hook them all up to the Global ALB.
 
 ![alt text](./public/multi.png)
+
+Enable Identity Aware Proxy (IAP) to protect the application with context aware authentication.
+
+![alt text](./public/iap.png)
 
 ## Table of Contents
 
 * [Directory contents](#directory-contents)
-* [Getting started with VS Code](#getting-started-with-vs-code)
+* [Build and Test the Run Function locally](#build-and-test-the-run-function-locally)
+* [Deploy to Google Cloud](#deploy-to-google-cloud)
+* [Automate the entire architcture using Pulumi IaC](#automate-the-entire-architcture-using-pulumi-iac)
+
 
 ## Directory contents
 * `launch.json` - the required Cloud Code configurations
@@ -38,15 +45,16 @@ You can invoke the function at `http://localhost:8080/`.
 
 ![alt text](./public/local.png)
 
-The sample code performs the following:
+The sample code fron [index.js](index.js) performs the following:
    1. Looks for an authentication header: `x-goog-authenticated-user-email`.  This is delivered by IAP once a user successfully authenticates via IAP
    2. Queries the Compute Metadata service to get info about where the Run Instance is serving from
    3. Executes a get to Firestore to fetch a document with ID that matches the incoming auth info from the header `x-goog-authenticated-user-email`
    4. Sleeps for 3 seconds to simulate real world load
    5. Returns a JSON response with all data from the Firestore document and Compute metadata
 
-
 You are now ready to deploy to Google Cloud!
+
+## Deploy to Google Cloud
 
 ### Before you begin
 
@@ -63,7 +71,7 @@ You are now ready to deploy to Google Cloud!
     * Logging
     * Pub/Sub
 
-#### Create the function manually
+### Create the function manually
 
 To create a new function manually using the Google Console, follow these steps:
 
@@ -77,7 +85,7 @@ To create a new function manually using the Google Console, follow these steps:
 
 5. Click **Save and redeploy**
 
-#### Deploy the function using the gcloud CLI
+### Deploy the function using the gcloud CLI
 
 To deploy a function using the gcloud CLI: 
 
@@ -94,8 +102,9 @@ To deploy a function using the gcloud CLI:
 
 See docs for more info [here.](https://cloud.google.com/run/docs/deploy-functions)
 
-#### Confirm deployment success
+### Confirm deployment success
 The function's deployment may take a few minutes. This is the process:
+
 
 ![alt text](./public/build.png)
 
@@ -106,11 +115,12 @@ The function's deployment may take a few minutes. This is the process:
 2. Check Artifact Registry. Cloud Build will push the actual deployment image when complete into a folder `cloud-run-source-deploy` matching the region you choose at deployment (us-east4 in this case).
 
 ![alt text](./public/ar.png)
+
 ![alt text](./public/ar2.png)
 
 3. Confirm successful deployment at Cloud Run
 
 
-#### Automate the entire architcture using Pulumi IaC
+## Automate the entire architcture using Pulumi IaC
 
 See [this GitHub project](https://github.com/georgemao/sample-next-react-webapp) for code and instructions
