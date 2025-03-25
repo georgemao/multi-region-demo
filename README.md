@@ -123,4 +123,4 @@ The function's deployment may take a few minutes. This is the process:
 
 ## Automate the entire architcture using Pulumi IaC
 
-See [this GitHub project](https://github.com/georgemao/sample-next-react-webapp) for code and instructions
+See [this GitHub project](https://github.com/georgemao/pulumi-gcf-multi-region-proj) for code and instructions
